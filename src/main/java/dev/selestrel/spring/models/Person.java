@@ -8,13 +8,17 @@ import jakarta.validation.constraints.Size;
 public class Person {
 
     private int id;
-    @NotNull(message = "Name should not be empty")
+
     @Size(min = 2, max = 200, message = "Name length should be between 2 and 200 characters")
     private String name;
+
     @NotNull(message = "Year of birth should not be empty")
     @Min(value = 1900, message = "Year of birth should not be before 1900")
     @Max(value = 2017, message = "Year of birth should not be after 2017 as we don't give books to person under 6")
     private int yearOfBirth;
+
+    public Person() {
+    }
 
     public Person(int id, String name, int yearOfBirth) {
         this.id = id;
