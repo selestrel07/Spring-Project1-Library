@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Size;
 public class Book {
 
     private int id;
-    private int personId;
+    private Integer personId;
     @NotNull(message = "Name should not be null")
     @Size(min = 2, max = 100, message = "Name length should be between 2 and 100")
     private String name;
@@ -16,6 +16,9 @@ public class Book {
     private String author;
     @Max(value = 2024, message = "Adding book from future not allowed")
     private int year;
+
+    public Book() {
+    }
 
     public Book(int id, int personId, String name, String author, int year) {
         this.id = id;
@@ -33,11 +36,11 @@ public class Book {
         this.id = id;
     }
 
-    public int getPersonId() {
+    public Integer getPersonId() {
         return personId;
     }
 
-    public void setPersonId(int personId) {
+    public void setPersonId(Integer personId) {
         this.personId = personId;
     }
 
