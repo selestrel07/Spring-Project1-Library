@@ -1,5 +1,6 @@
 package dev.selestrel.spring.controllers;
 
+import dev.selestrel.spring.dao.BookDAO;
 import dev.selestrel.spring.dao.PersonDAO;
 import dev.selestrel.spring.models.Person;
 import dev.selestrel.spring.util.PersonValidator;
@@ -15,11 +16,13 @@ import org.springframework.web.bind.annotation.*;
 public class PeopleController {
 
     private final PersonDAO personDAO;
+    private final BookDAO bookDAO;
     private final PersonValidator personValidator;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO, PersonValidator personValidator) {
+    public PeopleController(PersonDAO personDAO, BookDAO bookDAO, PersonValidator personValidator) {
         this.personDAO = personDAO;
+        this.bookDAO = bookDAO;
         this.personValidator = personValidator;
     }
 
@@ -33,6 +36,7 @@ public class PeopleController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("person", personDAO.show(id).get());
+        model.addAttribute("books", bookDAO.index(id));
 
         return "people/show";
     }
