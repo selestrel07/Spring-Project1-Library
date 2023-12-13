@@ -42,9 +42,11 @@ public class BookController {
     public String show(@PathVariable("id") int id, Model model) {
         Book book = bookDAO.show(id).get();
         model.addAttribute("book", book);
-        model.addAttribute("people", personDAO.index());
-        model.addAttribute("person", book.getPersonId() == null ? new Person()
-                : personDAO.show(book.getPersonId()).get());
+        if (book.getPersonId() != null) {
+            model.addAttribute("person", personDAO.show(book.getPersonId()).get());
+        } else {
+            model.addAttribute("people", personDAO.index());
+        }
 
         return "books/show";
     }
