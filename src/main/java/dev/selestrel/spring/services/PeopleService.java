@@ -2,6 +2,7 @@ package dev.selestrel.spring.services;
 
 import dev.selestrel.spring.models.Person;
 import dev.selestrel.spring.repositories.PeopleRepository;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +24,22 @@ public class PeopleService {
         return peopleRepository.findAll();
     }
 
-    public Person findOne(int id) {
-        return peopleRepository.findById(id).orElse(null);
+    public Person findById(int id) {
+        Person person = peopleRepository.findById(id).orElse(null);
+
+        if (person != null) {
+            Hibernate.initialize(person.getBooks());
+        }
+
+        return person;
     }
+
+    public Person findByName(String name) {
+
+        return peopleRepository.findByName(name);
+    }
+
+
 
     @Transactional()
     public void save(Person person) {

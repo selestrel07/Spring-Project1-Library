@@ -29,6 +29,7 @@ public class Person {
 
     @OneToMany(mappedBy = "owner")
     private List<Book> books;
+
     public Person() {
     }
 

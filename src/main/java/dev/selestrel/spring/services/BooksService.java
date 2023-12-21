@@ -1,7 +1,9 @@
 package dev.selestrel.spring.services;
 
 import dev.selestrel.spring.models.Book;
+import dev.selestrel.spring.models.Person;
 import dev.selestrel.spring.repositories.BooksRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,7 @@ public class BooksService {
 
     private final BooksRepository booksRepository;
 
+    @Autowired
     public BooksService(BooksRepository booksRepository) {
         this.booksRepository = booksRepository;
     }
@@ -25,19 +28,33 @@ public class BooksService {
         return booksRepository.findById(id).orElse(null);
     }
 
-    @Transactional()
+    @Transactional
     public void save(Book book) {
         booksRepository.save(book);
     }
 
-    @Transactional()
+    @Transactional
     public void update(int id, Book updatedBook) {
         updatedBook.setId(id);
         booksRepository.save(updatedBook);
     }
 
-    @Transactional()
+    @Transactional
     public void delete(int id) {
         booksRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void assign(int id, Person person) {
+        Book book = findOne(id);
+        if (book != null) {
+            book.setOwner(person);
+        }
+    }
+
+    @Transactional
+    public void release(int id) {
+        Book book = findOne(id);
+        book.setOwner(null);
     }
 }
