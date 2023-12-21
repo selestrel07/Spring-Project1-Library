@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
-
-//    private final PersonDAO personDAO;
-//    private final BookDAO bookDAO;
     private final PeopleService peopleService;
     private final PersonValidator personValidator;
 

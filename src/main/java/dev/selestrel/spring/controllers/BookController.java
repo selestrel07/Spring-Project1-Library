@@ -9,20 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/books")
 public class BookController {
-
-//    private final BookDAO bookDAO;
-//    private final PersonDAO personDAO;
     private final BooksService booksService;
     private final PeopleService peopleService;
 
@@ -33,8 +26,12 @@ public class BookController {
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("books", booksService.findAll());
+    public String index(@RequestParam(name = "page", required = false) Integer page,
+                        @RequestParam(name = "books_per_page", required = false) Integer booksPerPage,
+                        @RequestParam(name = "sort_by_year", required = false) Boolean sortByYear, Model model) {
+
+
+        model.addAttribute("books", booksService.findAll(page, booksPerPage, sortByYear));
 
         return "books/index";
     }
