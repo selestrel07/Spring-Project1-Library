@@ -22,10 +22,6 @@ public class BooksService {
         this.booksRepository = booksRepository;
     }
 
-    public List<Book> findAll() {
-        return booksRepository.findAll();
-    }
-
     public List<Book> findAll(Integer page, Integer booksPerPage, Boolean sortByDate) {
         PageRequest pageRequest;
         Sort sort = sortByDate != null && sortByDate ? Sort.by("year") : null;
@@ -43,6 +39,10 @@ public class BooksService {
         }
 
         return books;
+    }
+
+    public List<Book> findAllByTitleStartString(String titleStartString) {
+        return booksRepository.findAllByNameStartsWith(titleStartString);
     }
 
     public Book findOne(int id) {
