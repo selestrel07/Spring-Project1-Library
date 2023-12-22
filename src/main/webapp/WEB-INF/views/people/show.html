@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Person</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Person</title>
+    </head>
+    <body>
 
-    <div>
-        <p th:text="${person.getName()}+', '+${person.getYearOfBirth()}"></p>
-    </div>
-
-    <div th:if="${#lists.isEmpty(books)}">
-        <p>Человек пока не взял ни одной книги</p>
-    </div>
-
-    <div th:if="${not #lists.isEmpty(books)}">
-        <hr>
-        <p><strong>Книги:</strong></p>
-        <div th:each="book : ${books}">
-            <p th:text="${book.getName()}+', '+${book.getAuthor()}+', '+${book.getYear()}"></p>
+        <div>
+            <p th:text="${person.getName()}+', '+${person.getYearOfBirth()}"></p>
         </div>
-    </div>
-    <hr>
 
-    <form th:method="GET" th:action="@{{id}/edit(id=${person.getId()})}">
-        <input type="submit" th:value="Редактировать">
-    </form>
+        <div th:if="${#lists.isEmpty(books)}">
+            <p>Человек пока не взял ни одной книги</p>
+        </div>
 
-    <form style="margin-top: 5px" th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
-        <input type="submit" th:value="Удалить">
-    </form>
-</body>
+        <div th:if="${not #lists.isEmpty(books)}">
+            <hr>
+            <p><strong>Книги:</strong></p>
+            <div th:each="book : ${books}">
+                <p th:text="${book.getName()}+', '+${book.getAuthor()}+', '+${book.getYear()}"></p>
+            </div>
+        </div>
+        <hr>
+
+        <form th:method="GET" th:action="@{{id}/edit(id=${person.getId()})}">
+            <input type="submit" th:value="Редактировать">
+        </form>
+
+        <form style="margin-top: 5px" th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+            <input type="submit" th:value="Удалить">
+        </form>
+
+        <nav>
+            <a href="/books">Books</a>
+            <a href="/people">People</a>
+        </nav>
+    </body>
 </html>

@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>People</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <title>People</title>
+    </head>
+    <body>
 
-<div th:each="person : ${people}">
-    <a th:text="${person.getName()}+', '+${person.getYearOfBirth()}" th:href="@{/people/{id}(id=${person.getId()})}">User</a>
-</div>
-<br>
-<hr>
+        <div th:each="person : ${people}">
+            <a th:text="${person.getName()}+', '+${person.getYearOfBirth()}" th:href="@{/people/{id}(id=${person.getId()})}">User</a>
+        </div>
+        <br>
+        <hr>
 
-<a href="/people/new">Добавить человека</a>
+        <a href="/people/new">Добавить человека</a>
 
-</body>
+        <nav>
+            <a href="/books">Books</a>
+            <a href="/people">People</a>
+        </nav>
+
+    </body>
 </html>

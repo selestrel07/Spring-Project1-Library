@@ -15,5 +15,10 @@
             <div style="color:red" th:if="${#fields.hasErrors('year')}" th:errors="*{year}">ERROR</div><br>
             <input type="submit" value="Создать!" />
         </form>
+
+        <nav>
+            <a href="/books">Books</a>
+            <a href="/people">People</a>
+        </nav>
     </body>
 </html>
