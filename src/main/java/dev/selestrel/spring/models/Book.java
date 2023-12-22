@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "book")
 public class Book {
@@ -24,6 +26,13 @@ public class Book {
     @Max(value = 2024, message = "Adding book from future not allowed")
     @Column(name = "year")
     private int year;
+
+    @Column(name = "booking_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date bookingDate;
+
+    @Transient
+    private boolean expired;
 
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
@@ -77,5 +86,21 @@ public class Book {
 
     public void setOwner(Person owner) {
         this.owner = owner;
+    }
+
+    public Date getBookingDate() {
+        return bookingDate;
+    }
+
+    public void setBookingDate(Date bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
     }
 }

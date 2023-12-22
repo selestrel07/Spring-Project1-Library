@@ -9,6 +9,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -70,6 +73,7 @@ public class BooksService {
         Book book = findOne(id);
         if (book != null) {
             book.setOwner(person);
+            book.setBookingDate(new Date());
         }
     }
 
@@ -77,5 +81,6 @@ public class BooksService {
     public void release(int id) {
         Book book = findOne(id);
         book.setOwner(null);
+        book.setBookingDate(null);
     }
 }
