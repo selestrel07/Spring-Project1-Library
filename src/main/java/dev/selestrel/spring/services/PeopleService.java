@@ -60,7 +60,10 @@ public class PeopleService {
 
     @Transactional()
     public void update(int id, Person updatedPerson) {
+        Person person = findById(id);
+
         updatedPerson.setId(id);
+        updatedPerson.setBooks(person.getBooks());
         peopleRepository.save(updatedPerson);
     }
 

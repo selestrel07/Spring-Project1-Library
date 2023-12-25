@@ -5,17 +5,17 @@
     <title>Book Search</title>
 </head>
 <body>
-    <form method="GET" action="">
+    <form method="POST" action="/books/search">
         <label for="book-search">Enter title start for search: <input type="text" id="book-search" name="title"></label>
         <br>
         <input type="submit" value="Find!">
     </form>
 
-    <div th:if="${title != null}">
-        <div th:if="${books == null or books.isEmpty()}">
+    <div th:if="${books != null}">
+        <div th:if="${books.isEmpty()}">
             <p>No books found</p>
         </div>
-        <div th:if="${books != null}" th:each="book : ${books}">
+        <div th:each="book : ${books}">
             <p th:text="${book.getName()}+', '+${book.getAuthor()}+', '+${book.getYear()}"></p>
             <p th:if="${book.getOwner() == null}">Book is free</p>
             <p th:if="${book.getOwner() != null}" th:text="${book.getOwner().getName()}+' has the book now'"></p>

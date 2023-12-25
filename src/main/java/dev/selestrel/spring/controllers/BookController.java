@@ -106,14 +106,13 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public String searchBook(@RequestParam(value = "title", required = false) String title, Model model) {
-        List<Book> books = null;
-        if (title != null) {
-            books = booksService.findAllByTitleStartString(title);
-        }
-        model.addAttribute("title", title);
-        model.addAttribute("books", books);
-
+    public String searchBook() {
         return "/books/search";
+    }
+
+    @PostMapping("/search")
+    public String searchBook(@RequestParam(value = "title") String title, Model model) {
+        model.addAttribute("books", booksService.findAllByTitleStartString(title));
+        return "books/search";
     }
 }

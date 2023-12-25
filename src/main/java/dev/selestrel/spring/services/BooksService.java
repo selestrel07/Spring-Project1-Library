@@ -9,8 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -59,7 +57,10 @@ public class BooksService {
 
     @Transactional
     public void update(int id, Book updatedBook) {
+        Book book = booksRepository.findById(id).get();
+
         updatedBook.setId(id);
+        updatedBook.setOwner(book.getOwner());
         booksRepository.save(updatedBook);
     }
 
